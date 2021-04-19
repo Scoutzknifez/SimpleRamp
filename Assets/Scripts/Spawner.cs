@@ -21,7 +21,7 @@ public class Spawner : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Vector3 cubeSize = new Vector3(xVariance * 2, 0, zVariance * 2);
+        Vector3 cubeSize = new Vector3(xVariance, 0, zVariance);
         Gizmos.DrawWireCube(transform.position, cubeSize);
     }
 
@@ -37,7 +37,7 @@ public class Spawner : MonoBehaviour
         {
             yield return new WaitForSeconds(spawnRateInSeconds);
 
-            Vector3 spawnLocation = transform.position + new Vector3(xVariance == 0 ? 0 : Random.Range(-xVariance, xVariance), 0, zVariance == 0 ? 0 : Random.Range(-zVariance, zVariance));
+            Vector3 spawnLocation = transform.position + new Vector3(xVariance == 0 ? 0 : Random.Range(-xVariance / 2, xVariance / 2), 0, zVariance == 0 ? 0 : Random.Range(-zVariance / 2, zVariance / 2));
             Instantiate(ballToSpawn, spawnLocation, transform.rotation);
         }
     }
