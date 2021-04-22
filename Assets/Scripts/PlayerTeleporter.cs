@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerTeleporter : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("If player falls, put them back here.")]
     private Transform spawnPoint = null;
+
+    [SerializeField]
+    private Text timeKeeper = null;
 
     public void sendPlayerToSpawn()
     {
@@ -14,5 +18,7 @@ public class PlayerTeleporter : MonoBehaviour
         transform.position = spawnPoint.position + spawnLoc;
         transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
         GetComponentInChildren<CharacterController>().enabled = true;
+
+        timeKeeper.GetComponent<UpdateTimeDisplay>().resetTimer();
     }
 }
