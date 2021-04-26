@@ -15,7 +15,7 @@ public class DeleteFallingObjects : MonoBehaviour
 
             other.GetComponent<PlayerTeleporter>().sendPlayerToSpawn();
         } else {
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
         }
     }
 }

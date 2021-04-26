@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -15,5 +16,10 @@ public class CanvasManager : MonoBehaviour
     {
         menuPanel.SetActive(true);
         resolutionPanel.SetActive(false);
+    }
+
+    public void goToTitleScreen()
+    {
+        SceneManager.LoadScene(0);
     }
 }
