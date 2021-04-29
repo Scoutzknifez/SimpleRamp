@@ -1,28 +1,37 @@
-﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class UpdateTimeDisplay : MonoBehaviour
+public class Timer : MonoBehaviour
 {
     [SerializeField]
     private Text timeKeeper = null;
 
     public bool timerRunning = false;
+
     private float startTime = -1;
     private float endTime = -1;
+
+    [HideInInspector]
+    public string time;
 
     // Update is called once per frame
     void Update()
     {
-        if (!timerRunning && startTime != -1 && endTime != -1)
+        if (timerRunning)
         {
-            timeKeeper.text = ("Time: " + createTimeSection(startTime, endTime)).Substring(0, 10);
+            time = createTimeSection(startTime, Time.time);
+            timeKeeper.text = ("Time: " + time).Substring(0, 10);
         }
-        else if (timerRunning)
+        else if (!timerRunning && startTime != -1 && endTime != -1)
         {
-            timeKeeper.text = ("Time: " + createTimeSection(startTime, Time.time)).Substring(0, 10);
-        } else
+            time = createTimeSection(startTime, endTime);
+            timeKeeper.text = ("Time: " + time).Substring(0, 10);
+        }
+        else
         {
-            timeKeeper.text = "Timer: Paused";
+            timeKeeper.text = "Time: Paused";
         }
     }
 
@@ -31,9 +40,14 @@ public class UpdateTimeDisplay : MonoBehaviour
         float time = end - start;
         string timeSpot = time + "";
 
-        while(timeSpot.Length < 4)
+        while (timeSpot.Length < 4)
         {
             timeSpot += " ";
+        }
+
+        if (timeSpot.Length > 4)
+        {
+            timeSpot = timeSpot.Substring(0, 4);
         }
 
         return timeSpot;
