@@ -44,10 +44,18 @@ public class PlayerMovement : MonoBehaviour
     public bool isMovingLeftRight;
 
     Vector3 velocity;
-    bool isGrounded;
+    public bool isGrounded = false;
+    public bool wantToJump = false;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
+    {
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            wantToJump = true;
+        }
+    }
+
+    void FixedUpdate()
     {
         checkIfGrounded();
         doPlayerMovement();
@@ -77,17 +85,18 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(moveVector * moveSpeed * Time.deltaTime);
 
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        if(wantToJump && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            wantToJump = false;
         }
     }
 
     private void applyGravity()
     {
-        velocity.y += gravity * Time.deltaTime;
+        velocity.y += gravity * Time.fixedDeltaTime;
 
-        controller.Move(velocity * Time.deltaTime);
+        controller.Move(velocity * Time.fixedDeltaTime);
     }
 
     private void ListenForSprint()

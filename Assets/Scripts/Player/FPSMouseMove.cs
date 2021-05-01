@@ -12,6 +12,8 @@ public class FPSMouseMove : MonoBehaviour
 
     float xRotation = 0f;
 
+    public PlayerManager playerManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,11 @@ public class FPSMouseMove : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        LookAround();
+    }
+
+    void LookAround()
     {
         if (Cursor.lockState != CursorLockMode.Locked)
             return;
