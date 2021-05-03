@@ -8,10 +8,15 @@ public class CollideWithPlayer : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerTeleporter>().sendPlayerToSpawn();
-
-            Instantiate(explosionParticle, transform.position, transform.rotation);
-            gameObject.SetActive(false);
+            resetPlayerAndBall(collision.gameObject);
         }
+    }
+
+    public void resetPlayerAndBall(GameObject player)
+    {
+        player.GetComponent<PlayerTeleporter>().sendPlayerToSpawn();
+
+        Instantiate(explosionParticle, transform.position, transform.rotation);
+        gameObject.SetActive(false);
     }
 }

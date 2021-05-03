@@ -22,4 +22,16 @@ public class PlayerTeleporter : MonoBehaviour
 
         timer.resetTimer();
     }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (!hit.collider.gameObject.CompareTag("Ball"))
+        {
+            return;
+        }
+
+        // We are hitting a ball
+        GameObject ball = hit.collider.gameObject;
+        ball.GetComponent<CollideWithPlayer>().resetPlayerAndBall(gameObject);
+    }
 }

@@ -35,9 +35,6 @@ public class Client : MonoBehaviour
 
     private void Start()
     {
-        tcp = new TCP();
-        udp = new UDP();
-
         Debug.Log($"Connecting to {Globals.IP + ":" + Globals.Port} as {Globals.username}...");
         ConnectToServer();
     }
@@ -49,6 +46,9 @@ public class Client : MonoBehaviour
 
     public void ConnectToServer()
     {
+        tcp = new TCP();
+        udp = new UDP();
+
         InitializeClientData();
 
         isConnected = true;
