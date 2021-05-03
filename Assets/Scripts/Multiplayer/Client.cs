@@ -37,6 +37,9 @@ public class Client : MonoBehaviour
     {
         tcp = new TCP();
         udp = new UDP();
+
+        Debug.Log($"Connecting to {Globals.IP + ":" + Globals.Port} as {Globals.username}...");
+        ConnectToServer();
     }
 
     private void OnApplicationQuit()
@@ -281,7 +284,11 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.welcome, ClientHandle.Welcome },
             { (int)ServerPackets.spawnPlayer, ClientHandle.SpawnPlayer },
             { (int)ServerPackets.playerPosition, ClientHandle.PlayerPosition },
-            { (int)ServerPackets.playerRotation, ClientHandle.PlayerRotation }
+            { (int)ServerPackets.playerRotation, ClientHandle.PlayerRotation },
+            { (int)ServerPackets.playerDisconnected, ClientHandle.PlayerDisconnected },
+            { (int)ServerPackets.playerHealth, ClientHandle.PlayerHealth },
+            { (int)ServerPackets.playerRespawned, ClientHandle.PlayerRespawned },
+            { (int)ServerPackets.levelPieceSpawned, ClientHandle.SpawnLevelPiece }
         };
         Debug.Log("Initialized Packets...");
     }

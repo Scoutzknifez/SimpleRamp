@@ -8,7 +8,7 @@ public class PlayerTeleporter : MonoBehaviour
     private GameObject spawnPoint = null;
 
     [SerializeField]
-    private Timer timeKeeper = null;
+    private Timer timer = null;
 
     public Vector3 resetRotation = Vector3.zero;
 
@@ -20,6 +20,6 @@ public class PlayerTeleporter : MonoBehaviour
         transform.rotation = Quaternion.Euler(resetRotation);
         GetComponent<CharacterController>().enabled = true;
 
-        timeKeeper.resetTimer();
+        timer.resetTimer();
     }
 }

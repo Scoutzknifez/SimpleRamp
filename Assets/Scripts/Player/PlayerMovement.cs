@@ -49,10 +49,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            wantToJump = true;
-        }
+        ListenForSprint();
+        ListenForJump();
     }
 
     void FixedUpdate()
@@ -60,7 +58,6 @@ public class PlayerMovement : MonoBehaviour
         checkIfGrounded();
         doPlayerMovement();
         applyGravity();
-        ListenForSprint();
     }
 
     private void checkIfGrounded()
@@ -106,6 +103,14 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = isSprinting ? moveSpeed / sprintMultiplier : moveSpeed * sprintMultiplier;
 
             isSprinting = !isSprinting;
+        }
+    }
+
+    private void ListenForJump()
+    {
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            wantToJump = true;
         }
     }
 }

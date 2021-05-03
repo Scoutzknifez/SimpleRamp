@@ -8,13 +8,18 @@ public class GameManager : MonoBehaviour
 
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
 
+    public GameObject clientManager;
+
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
+
+    public GameObject toDisableOnStart;
 
     private void Awake()
     {
         if (instance == null)
         {
+            Instantiate(clientManager);
             instance = this;
         }
         else if (instance != this)
@@ -30,15 +35,20 @@ public class GameManager : MonoBehaviour
         if (_id == Client.instance.myId)
         {
             _player = Instantiate(localPlayerPrefab, _position, _rotation);
+            Globals.localPlayer = _player;
         }
         else
         {
             _player = Instantiate(playerPrefab, _position, _rotation);
+            _player.GetComponent<PlayerManager>().usernameDisplay.text = _username;
         }
 
-        _player.GetComponent<PlayerManager>().id = _id;
-        _player.GetComponent<PlayerManager>().username = _username;
+        _player.GetComponent<PlayerManager>().Initialize(_id, _username);
+
+        toDisableOnStart.SetActive(false);
         players.Add(_id, _player.GetComponent<PlayerManager>());
     }
+
+
 
 }

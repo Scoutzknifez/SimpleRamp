@@ -24,6 +24,11 @@ public class FPSMouseMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleCursorMode();
+        }
+
         LookAround();
     }
 
@@ -40,5 +45,19 @@ public class FPSMouseMove : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
+    }
+
+    private void ToggleCursorMode()
+    {
+        Cursor.visible = !Cursor.visible;
+
+        if (Cursor.lockState == CursorLockMode.None)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 }

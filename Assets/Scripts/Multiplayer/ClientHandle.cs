@@ -43,4 +43,40 @@ public class ClientHandle : MonoBehaviour
 
         GameManager.players[id].transform.rotation = rotation;
     }
+
+    public static void PlayerDisconnected(Packet packet)
+    {
+        int id = packet.ReadInt();
+
+        Destroy(GameManager.players[id].gameObject);
+        GameManager.players.Remove(id);
+    }
+
+    public static void PlayerHealth(Packet packet)
+    {
+        int id = packet.ReadInt();
+        float health = packet.ReadFloat();
+
+        GameManager.players[id].SetHealth(health);
+    }
+
+    public static void PlayerRespawned(Packet packet)
+    {
+        int id = packet.ReadInt();
+
+        GameManager.players[id].Respawn();
+    }
+
+    public static void SpawnLevelPiece(Packet packet)
+    {
+        Vector3 position = packet.ReadVector3();
+        Vector3 size = packet.ReadVector3();
+        Quaternion rotation = packet.ReadQuaternion();
+        string matName = packet.ReadString();
+
+        LevelPiece piece = new LevelPiece(position, size, rotation);
+        piece.materialName = matName;
+
+        LevelLoad.instance.LoadPiece(piece);
+    }
 }
