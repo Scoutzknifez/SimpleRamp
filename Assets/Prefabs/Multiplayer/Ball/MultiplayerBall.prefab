@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 4746502495370680954}
   - component: {fileID: 8292916829211105407}
   - component: {fileID: 3072296285548638933}
-  - component: {fileID: 3195677091026725478}
-  - component: {fileID: 3110243597620116243}
+  - component: {fileID: 5718985773443495999}
   - component: {fileID: 2860034324535934938}
+  - component: {fileID: 3693669792875537171}
   m_Layer: 12
-  m_Name: Ball
+  m_Name: MultiplayerBall
   m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135792,23 +135792,7 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!54 &3195677091026725478
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3989000686678358206}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &3110243597620116243
+--- !u!114 &5718985773443495999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135817,11 +135801,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3989000686678358206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2e14834d48e7574fb964ad22acc7fc2, type: 3}
+  m_Script: {fileID: 11500000, guid: a3bb86db730dc564ab2ee37af8be292b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionParticle: {fileID: 6698920586921838028, guid: e87efd9e43bd1354fbfba9af71d16e99,
-    type: 3}
+  id: 0
 --- !u!135 &2860034324535934938
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -135835,3 +135818,11 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!33 &3693669792875537171
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3989000686678358206}
+  m_Mesh: {fileID: 0}

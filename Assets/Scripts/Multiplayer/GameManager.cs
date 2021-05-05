@@ -7,11 +7,13 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
+    public static Dictionary<int, BallManager> balls = new Dictionary<int, BallManager>();
 
     public GameObject clientManager;
 
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
+    public GameObject ballPrefab;
 
     public GameObject toDisableOnStart;
 
@@ -49,6 +51,15 @@ public class GameManager : MonoBehaviour
         players.Add(_id, _player.GetComponent<PlayerManager>());
     }
 
+    public void SpawnBall(int id, bool active, Vector3 pos, Quaternion rot, Vector3 scale)
+    {
+        GameObject ball;
+        ball = Instantiate(ballPrefab, pos, rot);
 
+        ball.SetActive(active);
+        ball.transform.localScale = scale;
+        ball.GetComponent<BallManager>().Initialize(id);
 
+        balls.Add(id, ball.GetComponent<BallManager>());
+    }
 }

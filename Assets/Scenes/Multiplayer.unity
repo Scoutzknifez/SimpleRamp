@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465778, g: 0.49641526, b: 0.5748185, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -209,13 +209,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433621545}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.32374436, y: 0.5825634, z: -0.27165374, w: 0.6942721}
+  m_LocalPosition: {x: 0, y: 100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: 80, z: 0}
 --- !u!1 &734251998
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,6 +298,8 @@ MonoBehaviour:
   localPlayerPrefab: {fileID: 3555036090442115774, guid: ff2f51acad8b1014eba70067846e265d,
     type: 3}
   playerPrefab: {fileID: 6624647567885243402, guid: ee15a4fcbfe82474f8d4853a4ba000d9,
+    type: 3}
+  ballPrefab: {fileID: 3989000686678358206, guid: 92410d7d74ca36d4ebf86b5caabd74df,
     type: 3}
   toDisableOnStart: {fileID: 2143903801}
 --- !u!4 &798240483

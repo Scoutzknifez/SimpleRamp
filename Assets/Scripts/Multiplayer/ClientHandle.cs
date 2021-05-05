@@ -79,4 +79,48 @@ public class ClientHandle : MonoBehaviour
 
         LevelLoad.instance.LoadPiece(piece);
     }
+
+    public static void BallSpawn(Packet packet)
+    {
+        int id = packet.ReadInt();
+        bool active = packet.ReadBool();
+        Vector3 position = packet.ReadVector3();
+        Quaternion rotation = packet.ReadQuaternion();
+        Vector3 scale = packet.ReadVector3();
+
+        GameManager.instance.SpawnBall(id, active, position, rotation, scale);
+    }
+
+    public static void BallActive(Packet packet)
+    {
+        int id = packet.ReadInt();
+        bool active = packet.ReadBool();
+        Vector3 position = packet.ReadVector3();
+        Quaternion rotation = packet.ReadQuaternion();
+        Vector3 scale = packet.ReadVector3();
+
+        // Do not update a ball that has NOT been spawned
+        if (!GameManager.balls.ContainsKey(id))
+            return;
+
+        BallManager ball = GameManager.balls[id];
+        ball.gameObject.SetActive(active);
+        ball.transform.position = position;
+        ball.transform.rotation = rotation;
+        ball.transform.localScale = scale;
+    }
+
+    public static void BallRoll(Packet packet)
+    {
+        int id = packet.ReadInt();
+        Vector3 position = packet.ReadVector3();
+        Quaternion rotation = packet.ReadQuaternion();
+
+        // Do not update a ball that has NOT been spawned
+        if (!GameManager.balls.ContainsKey(id))
+            return;
+
+        GameManager.balls[id].transform.position = position;
+        GameManager.balls[id].transform.rotation = rotation;
+    }
 }

@@ -288,7 +288,10 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerDisconnected, ClientHandle.PlayerDisconnected },
             { (int)ServerPackets.playerHealth, ClientHandle.PlayerHealth },
             { (int)ServerPackets.playerRespawned, ClientHandle.PlayerRespawned },
-            { (int)ServerPackets.levelPieceSpawned, ClientHandle.SpawnLevelPiece }
+            { (int)ServerPackets.levelPieceSpawned, ClientHandle.SpawnLevelPiece },
+            { (int)ServerPackets.ballSpawn, ClientHandle.BallSpawn },
+            { (int)ServerPackets.ballActive, ClientHandle.BallActive },
+            { (int)ServerPackets.ballRoll, ClientHandle.BallRoll }
         };
         Debug.Log("Initialized Packets...");
     }
