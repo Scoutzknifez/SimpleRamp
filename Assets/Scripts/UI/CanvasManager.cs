@@ -20,6 +20,6 @@ public class CanvasManager : MonoBehaviour
 
     public void goToTitleScreen()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Main_Menu");
     }
 }

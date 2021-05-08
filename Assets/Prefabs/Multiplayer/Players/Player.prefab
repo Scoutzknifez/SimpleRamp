@@ -165,7 +165,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 0}
+  m_renderer: {fileID: 7517202025052953710}
   m_maskType: 0
   _SortingLayerID: 0
   _SortingOrder: 0
@@ -313,6 +313,6 @@ MonoBehaviour:
   id: 0
   model: {fileID: 2339298834618270099}
   username: 
-  usernameDisplay: {fileID: 0}
+  usernameDisplay: {fileID: 3808937131871383045}
   maxHealth: 1
   health: 0

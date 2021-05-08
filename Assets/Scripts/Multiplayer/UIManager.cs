@@ -38,8 +38,8 @@ public class UIManager : MonoBehaviour
             Globals.IP = ipField.text.Trim();
             Globals.Port = port;
             Globals.username = usernameField.text.Trim();
-            SceneManager.LoadScene(multiplayerLevelName);
 
+            SceneManager.LoadScene(multiplayerLevelName);
         }
     }
 

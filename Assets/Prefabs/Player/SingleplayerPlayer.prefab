@@ -266,8 +266,8 @@ MonoBehaviour:
   moveSpeed: 3
   isSprinting: 0
   sprintMultiplier: 1.7
-  gravity: -19.62
-  jumpHeight: 1
+  gravity: -14.715
+  jumpSpeed: 5
   groundChecker: {fileID: 1608105729543144906}
   groundDistance: 0.2
   groundLayer:
@@ -275,6 +275,7 @@ MonoBehaviour:
     m_Bits: 512
   isMovingForwardBackward: 0
   isMovingLeftRight: 0
+  yVelocity: 0
   isGrounded: 0
   wantToJump: 0
 --- !u!114 &1608105730808917582

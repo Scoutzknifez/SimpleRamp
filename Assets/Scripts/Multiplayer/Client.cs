@@ -20,6 +20,8 @@ public class Client : MonoBehaviour
     private delegate void PacketHandler(Packet packet);
     private static Dictionary<int, PacketHandler> packetHandlers;
 
+    public static Dictionary<int, int> packetsPerSecond = new Dictionary<int, int>();
+
     private void Awake()
     {
         if (instance == null)
@@ -291,9 +293,15 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.levelPieceSpawned, ClientHandle.SpawnLevelPiece },
             { (int)ServerPackets.ballSpawn, ClientHandle.BallSpawn },
             { (int)ServerPackets.ballActive, ClientHandle.BallActive },
-            { (int)ServerPackets.ballRoll, ClientHandle.BallRoll }
+            { (int)ServerPackets.ballRoll, ClientHandle.BallRoll },
+            { (int)ServerPackets.ballCollided, ClientHandle.BallCollided }
         };
         Debug.Log("Initialized Packets...");
+
+        foreach (int packetId in packetHandlers.Keys)
+        {
+            Client.packetsPerSecond.Add(packetId, 0);
+        }
     }
 
     private void Disconnect()

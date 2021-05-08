@@ -16,6 +16,7 @@ public class ClientHandle : MonoBehaviour
         ClientSend.WelcomeReceived();
 
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
+        GameManager.instance.packetCount((int)ServerPackets.welcome);
     }
 
     public static void SpawnPlayer(Packet packet)
@@ -26,6 +27,7 @@ public class ClientHandle : MonoBehaviour
         Quaternion rotation = packet.ReadQuaternion();
 
         GameManager.instance.SpawnPlayer(id, username, position, rotation);
+        GameManager.instance.packetCount((int)ServerPackets.spawnPlayer);
     }
 
     public static void PlayerPosition(Packet packet)
@@ -33,7 +35,12 @@ public class ClientHandle : MonoBehaviour
         int id = packet.ReadInt();
         Vector3 position = packet.ReadVector3();
 
+        // DO NOT TURN A PLAYER THAT DOES NOT EXIST
+        if (!GameManager.players.ContainsKey(id))
+            return;
+
         GameManager.players[id].transform.position = position;
+        GameManager.instance.packetCount((int) ServerPackets.playerPosition);
     }
 
     public static void PlayerRotation(Packet packet)
@@ -41,7 +48,12 @@ public class ClientHandle : MonoBehaviour
         int id = packet.ReadInt();
         Quaternion rotation = packet.ReadQuaternion();
 
+        // DO NOT TURN A PLAYER THAT DOES NOT EXIST
+        if (!GameManager.players.ContainsKey(id))
+            return;
+
         GameManager.players[id].transform.rotation = rotation;
+        GameManager.instance.packetCount((int)ServerPackets.playerRotation);
     }
 
     public static void PlayerDisconnected(Packet packet)
@@ -50,6 +62,7 @@ public class ClientHandle : MonoBehaviour
 
         Destroy(GameManager.players[id].gameObject);
         GameManager.players.Remove(id);
+        GameManager.instance.packetCount((int)ServerPackets.playerDisconnected);
     }
 
     public static void PlayerHealth(Packet packet)
@@ -58,6 +71,7 @@ public class ClientHandle : MonoBehaviour
         float health = packet.ReadFloat();
 
         GameManager.players[id].SetHealth(health);
+        GameManager.instance.packetCount((int)ServerPackets.playerHealth);
     }
 
     public static void PlayerRespawned(Packet packet)
@@ -65,6 +79,7 @@ public class ClientHandle : MonoBehaviour
         int id = packet.ReadInt();
 
         GameManager.players[id].Respawn();
+        GameManager.instance.packetCount((int)ServerPackets.playerRespawned);
     }
 
     public static void SpawnLevelPiece(Packet packet)
@@ -78,6 +93,7 @@ public class ClientHandle : MonoBehaviour
         piece.materialName = matName;
 
         LevelLoad.instance.LoadPiece(piece);
+        GameManager.instance.packetCount((int)ServerPackets.levelPieceSpawned);
     }
 
     public static void BallSpawn(Packet packet)
@@ -89,6 +105,7 @@ public class ClientHandle : MonoBehaviour
         Vector3 scale = packet.ReadVector3();
 
         GameManager.instance.SpawnBall(id, active, position, rotation, scale);
+        GameManager.instance.packetCount((int)ServerPackets.ballSpawn);
     }
 
     public static void BallActive(Packet packet)
@@ -98,6 +115,8 @@ public class ClientHandle : MonoBehaviour
         Vector3 position = packet.ReadVector3();
         Quaternion rotation = packet.ReadQuaternion();
         Vector3 scale = packet.ReadVector3();
+
+        GameManager.instance.packetCount((int)ServerPackets.ballActive);
 
         // Do not update a ball that has NOT been spawned
         if (!GameManager.balls.ContainsKey(id))
@@ -116,11 +135,20 @@ public class ClientHandle : MonoBehaviour
         Vector3 position = packet.ReadVector3();
         Quaternion rotation = packet.ReadQuaternion();
 
+        GameManager.instance.packetCount((int)ServerPackets.ballRoll);
+
         // Do not update a ball that has NOT been spawned
         if (!GameManager.balls.ContainsKey(id))
             return;
 
         GameManager.balls[id].transform.position = position;
         GameManager.balls[id].transform.rotation = rotation;
+    }
+
+    public static void BallCollided(Packet packet)
+    {
+        Vector3 position = packet.ReadVector3();
+
+        GameManager.instance.SpawnExplosionParticle(position);
     }
 }

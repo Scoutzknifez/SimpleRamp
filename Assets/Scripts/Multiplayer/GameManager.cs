@@ -11,9 +11,13 @@ public class GameManager : MonoBehaviour
 
     public GameObject clientManager;
 
+    [Header("Player Prefabs")]
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
+
+    [Header("Game Prefabs")]
     public GameObject ballPrefab;
+    public GameObject explosionPrefab;
 
     public GameObject toDisableOnStart;
 
@@ -61,5 +65,24 @@ public class GameManager : MonoBehaviour
         ball.GetComponent<BallManager>().Initialize(id);
 
         balls.Add(id, ball.GetComponent<BallManager>());
+    }
+
+    public void SpawnExplosionParticle(Vector3 position)
+    {
+        Instantiate(explosionPrefab, position, Quaternion.identity);
+    }
+
+    public void packetCount(int id)
+    {
+        Client.packetsPerSecond[id]++; 
+
+        StartCoroutine(decrementPacketCount(id));
+    }
+
+    IEnumerator decrementPacketCount(int id)
+    {
+        yield return new WaitForSeconds(1);
+
+        Client.packetsPerSecond[id]--;
     }
 }

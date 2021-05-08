@@ -34,7 +34,6 @@ public class PlayerManager : MonoBehaviour
             // as an axis... we just changed the display to -1 X scale
             usernameDisplay.transform.LookAt(lookTowards);
         }
-        
     }
 
     public void SetHealth(float _health)

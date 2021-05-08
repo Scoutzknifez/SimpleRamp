@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     [Tooltip("The jump height of the player.")]
-    private float jumpHeight = 0;
+    private float jumpSpeed = 5f;
     
     [Header("Player On Ground Tools")]
 
@@ -43,9 +43,16 @@ public class PlayerMovement : MonoBehaviour
     public bool isMovingForwardBackward;
     public bool isMovingLeftRight;
 
-    Vector3 velocity;
+    public float yVelocity = 0f;
     public bool isGrounded = false;
     public bool wantToJump = false;
+
+    private void Start()
+    {
+        gravity *= Time.fixedDeltaTime * Time.fixedDeltaTime;
+        moveSpeed *= Time.fixedDeltaTime;
+        jumpSpeed *= Time.fixedDeltaTime;
+    }
 
     private void Update()
     {
@@ -64,14 +71,19 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundLayer);
 
-        if (isGrounded && velocity.y < 0)
+        if (isGrounded && yVelocity < 0)
         {
-            velocity.y = -2f;
+            yVelocity = -2f;
         }
     }
 
     private void doPlayerMovement()
     {
+        if (gameObject.GetComponent<Player>().isDead)
+        {
+            return;
+        }
+
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
@@ -79,30 +91,38 @@ public class PlayerMovement : MonoBehaviour
         isMovingLeftRight = x != 0;
 
         Vector3 moveVector = transform.right * x + transform.forward * z;
+        moveVector *= moveSpeed;
 
-        controller.Move(moveVector * moveSpeed * Time.deltaTime);
+        if (isSprinting)
+        {
+            moveVector *= sprintMultiplier;
+        }
 
         if(wantToJump && isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            yVelocity = jumpSpeed;
             wantToJump = false;
         }
+
+        moveVector.y = yVelocity;
+        controller.Move(moveVector);
     }
 
     private void applyGravity()
     {
-        velocity.y += gravity * Time.fixedDeltaTime;
-
-        controller.Move(velocity * Time.fixedDeltaTime);
+        yVelocity += gravity;
     }
 
     private void ListenForSprint()
     {
-        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            moveSpeed = isSprinting ? moveSpeed / sprintMultiplier : moveSpeed * sprintMultiplier;
+            isSprinting = true;
+        }
 
-            isSprinting = !isSprinting;
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            isSprinting = false;
         }
     }
 

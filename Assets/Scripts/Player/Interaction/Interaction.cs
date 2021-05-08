@@ -18,7 +18,6 @@ public class Interaction : MonoBehaviour
     {
         int interactableLayer = LayerMask.GetMask("Interactable");
 
-        Debug.DrawRay(mainCamera.transform.position, mainCamera.transform.forward * interactionDistance, Color.red, .1f);
         bool hit = Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out RaycastHit rayHitInfo, interactionDistance, interactableLayer);
 
         if (hit)

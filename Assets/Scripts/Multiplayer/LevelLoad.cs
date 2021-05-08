@@ -31,6 +31,7 @@ public class LevelLoad : MonoBehaviour
 
         generatedObject.transform.position = data.position;
         generatedObject.transform.rotation = data.rotation;
+        generatedObject.layer = gameObject.layer;
 
         MaterialMapping mapping = MaterialMapping.GetMaterialMappingFromName(levelMaterials, data.materialName);
 

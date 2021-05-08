@@ -14,7 +14,7 @@ public class CollideWithPlayer : MonoBehaviour
 
     public void resetPlayerAndBall(GameObject player)
     {
-        player.GetComponent<PlayerTeleporter>().sendPlayerToSpawn();
+        player.GetComponent<Player>().Die();
 
         Instantiate(explosionParticle, transform.position, transform.rotation);
         gameObject.SetActive(false);
