@@ -190,6 +190,17 @@ public class Packet : IDisposable
         Write(_value.z);
         Write(_value.w);
     }
+
+    /// <summary>Adds an ArrayPacker to the packet.</summary>
+    /// <param name="_value">The ArrayPacker to add.</param>
+    public void Write(ArrayPacker _value)
+    {
+        Write(_value.length);
+        foreach (int value in _value.array)
+        {
+            Write(value);
+        }
+    }
     #endregion
 
     #region Read Data
@@ -374,6 +385,19 @@ public class Packet : IDisposable
     public Quaternion ReadQuaternion(bool _moveReadPos = true)
     {
         return new Quaternion(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos));
+    }
+
+    /// <summary>Reads a ArrayPacker from the packet.</summary>
+    /// <param name="_moveReadPos">Whether or not to move the buffer's read position.</param>
+    public ArrayPacker ReadArrayPacker(bool _moveReadPos = true)
+    {
+        int[] values = new int[ReadInt(_moveReadPos)];
+        for (int i = 0; i < values.Length; i++)
+        {
+            values[i] = ReadInt(_moveReadPos);
+        }
+
+        return new ArrayPacker(values);
     }
     #endregion
 

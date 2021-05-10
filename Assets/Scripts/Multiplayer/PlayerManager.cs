@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Meta data")]
     public int id;
     public MeshRenderer model;
+    public bool isLocalPlayer;
 
     [Header("Known in game")]
     public string username;
@@ -24,7 +25,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if (usernameDisplay != null)
+        if (!isLocalPlayer)
         {
             Vector3 lookTowards = Globals.localPlayer.GetComponentInChildren<Camera>().transform.position;
             
@@ -49,11 +50,28 @@ public class PlayerManager : MonoBehaviour
     public void Die()
     {
         model.enabled = false;
+
+        if (isLocalPlayer)
+        {
+            GameManager.instance.PlayDeathFade();
+        }
+        else
+        {
+            usernameDisplay.enabled = false;
+        }
     }
 
     public void Respawn()
     {
         model.enabled = true;
-        SetHealth(maxHealth);
+
+        if (isLocalPlayer)
+        {
+            GameManager.instance.ClearDeathFade();
+        }
+        else
+        {
+            usernameDisplay.enabled = true;
+        }
     }
 }

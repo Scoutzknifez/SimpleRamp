@@ -19,6 +19,13 @@ public class GameManager : MonoBehaviour
     public GameObject ballPrefab;
     public GameObject explosionPrefab;
 
+    [Header("Death Fade")]
+    public GameObject deathRedPanel;
+    public Animator animator;
+    public GameObject[] deactivateOnDeath;
+    public GameObject[] activateOnRespawn;
+
+    [Header("Misc")]
     public GameObject toDisableOnStart;
 
     private void Awake()
@@ -70,6 +77,27 @@ public class GameManager : MonoBehaviour
     public void SpawnExplosionParticle(Vector3 position)
     {
         Instantiate(explosionPrefab, position, Quaternion.identity);
+    }
+
+    public void PlayDeathFade()
+    {
+        foreach (GameObject go in deactivateOnDeath)
+        {
+            go.SetActive(false);
+        }
+
+        deathRedPanel.SetActive(true);
+        animator.Play("DeathRedIn", -1, 0f);
+    }
+
+    public void ClearDeathFade()
+    {
+        deathRedPanel.SetActive(false);
+
+        foreach (GameObject go in activateOnRespawn)
+        {
+            go.SetActive(true);
+        }
     }
 
     public void packetCount(int id)

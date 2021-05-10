@@ -26,12 +26,31 @@ public class LevelLoad : MonoBehaviour
 
     public void LoadPiece(LevelPiece data)
     {
-        ProBuilderMesh mesh = ShapeGenerator.GenerateCube(PivotLocation.Center, data.size);
-        GameObject generatedObject = mesh.gameObject;
+        List<Vertex> vertices = new List<Vertex>();
+        foreach (Vector3 position in data.vertices)
+        {
+            Vertex newPoint = new Vertex();
+            newPoint.position = position;
+            vertices.Add(newPoint);
+        }
+
+        List<Face> faces = new List<Face>();
+        foreach (ArrayPacker face in data.faces)
+        {
+            faces.Add(new Face(face.array));
+        }
+
+        List<SharedVertex> sharedVertices = new List<SharedVertex>();
+        foreach (ArrayPacker shared in data.sharedVertices)
+        {
+            sharedVertices.Add(new SharedVertex(shared.array));
+        }
+
+        ProBuilderMesh pbMesh = ProBuilderMesh.Create(vertices, faces, sharedVertices);
+        GameObject generatedObject = pbMesh.gameObject;
 
         generatedObject.transform.position = data.position;
         generatedObject.transform.rotation = data.rotation;
-        generatedObject.layer = gameObject.layer;
 
         MaterialMapping mapping = MaterialMapping.GetMaterialMappingFromName(levelMaterials, data.materialName);
 
@@ -53,16 +72,33 @@ public class LevelLoad : MonoBehaviour
 public class LevelPiece
 {
     public Vector3 position;
-    public Vector3 size;
     public Quaternion rotation;
+
+    public Vector3[] vertices;
+    public ArrayPacker[] faces;
+    public ArrayPacker[] sharedVertices;
 
     public string materialName;
 
-    public LevelPiece(Vector3 _pos, Vector3 _size, Quaternion _rot)
+    public LevelPiece(Vector3 _pos, Quaternion _rot, Vector3[] _vertices, ArrayPacker[] _faces, ArrayPacker[] _sharedVertices)
     {
         position = _pos;
-        size = _size;
         rotation = _rot;
+        vertices = _vertices;
+        faces = _faces;
+        sharedVertices = _sharedVertices;
+    }
+}
+
+public class ArrayPacker
+{
+    public int length;
+    public int[] array;
+
+    public ArrayPacker(int[] _elements)
+    {
+        array = _elements;
+        length = array.Length;
     }
 }
 

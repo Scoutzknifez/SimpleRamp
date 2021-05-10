@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public float respawnTimeInSeconds = 3f;
 
+    public MeshRenderer model;
     public GameObject deathRedPanel;
     public Animator animator;
     public GameObject[] deactivateOnDeath;
@@ -15,6 +16,7 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
+        model.enabled = false;
         isDead = true;
         gameObject.GetComponent<CharacterController>().enabled = false;
 
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(respawnTimeInSeconds);
 
+        model.enabled = true;
         gameObject.GetComponent<PlayerTeleporter>().sendPlayerToSpawn();
         deathRedPanel.SetActive(false);
 

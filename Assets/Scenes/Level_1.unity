@@ -6315,6 +6315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnTimeInSeconds: 3
+  model: {fileID: 1132947321}
   deathRedPanel: {fileID: 607821012}
   animator: {fileID: 607821014}
   deactivateOnDeath:
@@ -6325,6 +6326,12 @@ MonoBehaviour:
   - {fileID: 63910315}
   - {fileID: 2020984308}
   isDead: 0
+--- !u!23 &1132947321 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1608105730326130693, guid: 9d7ab7fc451a61a45bc36f7d797a3144,
+    type: 3}
+  m_PrefabInstance: {fileID: 1608105729902236756}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1149235572
 GameObject:
   m_ObjectHideFlags: 0

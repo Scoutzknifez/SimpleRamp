@@ -85,11 +85,29 @@ public class ClientHandle : MonoBehaviour
     public static void SpawnLevelPiece(Packet packet)
     {
         Vector3 position = packet.ReadVector3();
-        Vector3 size = packet.ReadVector3();
         Quaternion rotation = packet.ReadQuaternion();
+
+        Vector3[] vertices = new Vector3[packet.ReadInt()];
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            vertices[i] = packet.ReadVector3();
+        }
+
+        ArrayPacker[] faces = new ArrayPacker[packet.ReadInt()];
+        for (int i = 0; i < faces.Length; i++)
+        {
+            faces[i] = packet.ReadArrayPacker();
+        }
+
+        ArrayPacker[] sharedVertices = new ArrayPacker[packet.ReadInt()];
+        for (int i = 0; i < sharedVertices.Length; i++)
+        {
+            sharedVertices[i] = packet.ReadArrayPacker();
+        }
+
         string matName = packet.ReadString();
 
-        LevelPiece piece = new LevelPiece(position, size, rotation);
+        LevelPiece piece = new LevelPiece(position, rotation, vertices, faces, sharedVertices);
         piece.materialName = matName;
 
         LevelLoad.instance.LoadPiece(piece);

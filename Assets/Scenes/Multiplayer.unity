@@ -303,7 +303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clientManager: {fileID: 2213611205001495178, guid: 72c0865bbbdaf494badb94f9aec26f7e,
     type: 3}
-  localPlayerPrefab: {fileID: 3555036090442115774, guid: ff2f51acad8b1014eba70067846e265d,
+  localPlayerPrefab: {fileID: 3793886731632732520, guid: ff2f51acad8b1014eba70067846e265d,
     type: 3}
   playerPrefab: {fileID: 6624647567885243402, guid: ee15a4fcbfe82474f8d4853a4ba000d9,
     type: 3}
@@ -311,6 +311,10 @@ MonoBehaviour:
     type: 3}
   explosionPrefab: {fileID: 6698920586921838028, guid: e87efd9e43bd1354fbfba9af71d16e99,
     type: 3}
+  deathRedPanel: {fileID: 837300818}
+  animator: {fileID: 837300822}
+  deactivateOnDeath: []
+  activateOnRespawn: []
   toDisableOnStart: {fileID: 2143903801}
 --- !u!4 &798240483
 Transform:
@@ -344,7 +348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &837300819
 RectTransform:
   m_ObjectHideFlags: 0

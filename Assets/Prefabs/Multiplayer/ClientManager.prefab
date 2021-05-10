@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ip: 127.0.0.1
-  port: 7777
+  port: 7776
   myId: 0
 --- !u!114 &2213611205001495183
 MonoBehaviour:
