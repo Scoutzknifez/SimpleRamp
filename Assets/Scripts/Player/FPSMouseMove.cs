@@ -12,8 +12,6 @@ public class FPSMouseMove : MonoBehaviour
 
     float xRotation = 0f;
 
-    public PlayerManager playerManager;
-
     // Start is called before the first frame update
     void Start()
     {
